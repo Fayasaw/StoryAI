@@ -1,68 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create a Story with AI</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #f4f4f9;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story AI</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background-color: #6c757d;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            width: 250px;
+            overflow-y: auto;
+        }
+        .sidebar h3 {
+            padding: 1rem;
+            text-align: center;
+            background-color: #495057;
+        }
+        .sidebar img {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+        .header {
+            color: #343a40;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .story-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #saved-outputs a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #612A9F;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s;
+}
 
-    #chatbox {
-      width: 80%;
-      height: 300px;
-      overflow-y: auto;
-      margin: 20px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #fff;
-    }
+#saved-outputs a:hover {
+    background-color: #343a40;
+    text-decoration: none;
+}
 
-    #inputContainer {
-      display: flex;
-      width: 80%;
-      margin-top: 10px;
+        /* Media query for smaller screens */
+@media (max-width: 768px) { 
+    .story-box {
+        padding: 1.5rem; /* Reduce padding */
     }
+}
 
-    #userInput {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+@media (max-width: 576px) {
+    .story-box {
+        padding: 1rem; /* Further reduce padding */
+        border-radius: 5px; /* Smaller border radius */
     }
-
-    #sendButton {
-      margin-left: 10px;
-      padding: 10px 20px;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #sendButton:hover {
-      background-color: #0056b3;
-    }
-  </style>
+}
+    </style>
 </head>
-
 <body>
-  <h1>Create a Story with AI</h1>
-  <div id="chatbox"></div>
-  <div id="inputContainer">
-    <input type="text" id="userInput" placeholder="Enter your story prompt here" />
-    <button id="sendButton">Send</button>
-  </div>
-  <script src="main.js"></script>
-</body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Story AI</h3>
+        <ul class="list-unstyled p-3">
+            <li><a href="saved-outputs.html" class="text-white text-decoration-none">View Saved Story</a></li>
+            <li><a href="image-gen.html" class="text-white text-decoration-none">Make an Image</a></li>
+        </ul>
+    </div>
 
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Story AI</h1>
+        </div>
+        
+        <!-- Story Box -->
+        <div class="story-box">
+          <p class="output">(Ask Something..)</p>
+             <form>
+                <div class="prompt-box">
+                <input id="prompt" name="prompt" placeholder="Enter instructions here" type="text" value="">
+                  <button type="submit">Go</button>           
+
+                </div>
+            </form> 
+            <button id="save-button" class="btn btn-secondary mt-3">Save Output</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/main.js"></script>
+</body>
 </html>
