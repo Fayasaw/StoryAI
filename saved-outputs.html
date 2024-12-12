@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Outputs</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 2rem;
+        }
+        .output-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: red;
+            border: none;
+            background: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Saved Outputs</h1>
+        <div id="output-list" class="list-group">
+            <!-- Outputs will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Fetch saved outputs from localStorage
+        let savedOutputs = JSON.parse(localStorage.getItem('savedOutputs')) || [];
+        const outputList = document.getElementById('output-list');
+
+        function renderOutputs() {
+            outputList.innerHTML = ''; // Clear the list
+            if (savedOutputs.length === 0) {
+                outputList.innerHTML = `
+                    <div class="output-card text-center">
+                        <p>No saved outputs available.</p>
+                    </div>
+                `;
+            } else {
+                savedOutputs.forEach((output, index) => {
+                    const outputCard = document.createElement('div');
+                    outputCard.classList.add('output-card');
+                    outputCard.innerHTML = `
+                        <h5>Story ${index + 1}</h5>
+                        <p>${output}</p>
+                        <button class="delete-btn" data-index="${index}">&times;</button>
+                    `;
+                    outputList.appendChild(outputCard);
+                });
+            }
+        }
+
+        // Handle delete button click
+        outputList.addEventListener('click', (event) => {
+            if (event.target.classList.contains('delete-btn')) {
+                const index = event.target.getAttribute('data-index');
+                savedOutputs.splice(index, 1); // Remove the item from the array
+                localStorage.setItem('savedOutputs', JSON.stringify(savedOutputs)); // Update localStorage
+                renderOutputs(); // Re-render the outputs
+            }
+        });
+
+        // Initial render
+        renderOutputs();
+    </script>
+</body>
+</html>
